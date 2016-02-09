@@ -23,6 +23,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    LoginViewController *login;
+    login=[[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:login];
+    navController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    self.window.rootViewController=navController;
+    [self.window makeKeyAndVisible];
+
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];

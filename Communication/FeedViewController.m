@@ -283,6 +283,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [activityIndicator stopAnimating];
     activityDetailsArray=[[NSMutableArray alloc] init];
     feedtypeString=[[NSString alloc] init];
     feedtypeString=@"";
@@ -312,9 +313,9 @@
     if(avo != nil)
     {
         feedtypeString=avo.firstinformation;
-        [self getFeedList];
+        //[self getFeedList];
     }else{
-        [self getFeedType];
+       // [self getFeedType];
 
     }
     
@@ -332,7 +333,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [activityDetailsArray count];
+    return 10;
+    //[activityDetailsArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -344,11 +346,10 @@
 {
     static NSString *cellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    Feedlist *fdlvo=[activityDetailsArray objectAtIndex:indexPath.row];
+    //Feedlist *fdlvo=[activityDetailsArray objectAtIndex:indexPath.row];
     AsyncImageView *userImageView;
     UILabel *messageLabel,*timeLabel,*usernameLabel;
-    if (nil == cell)
-    {
+    
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.backgroundColor=[UIColor clearColor];
         cell.textLabel.textColor=[UIColor whiteColor];
@@ -374,7 +375,7 @@
         [cell.contentView addSubview:usernameLabel];
         [cell.contentView addSubview:messageLabel];
         [cell.contentView addSubview:timeLabel];
-    }
+    
     tableView.backgroundColor=[UIColor clearColor];
     dispatch_async(dispatch_get_main_queue(), ^{
         //Your main thread code goes in here
@@ -386,13 +387,13 @@
         UILabel *messageLabel = (id)[cell.contentView viewWithTag:3];
         UILabel *timeLabel = (id)[cell.contentView viewWithTag:4];
         
-        [userImageView loadImageFromURL:[NSURL URLWithString:fdlvo.feedimage]];
+       // [userImageView loadImageFromURL:[NSURL URLWithString:fdlvo.feedimage]];
+        userImageView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"feed3.png"]];
+        usernameLabel.text=@"Danny";
         
-        usernameLabel.text=fdlvo.feedname;
+        messageLabel.text=@"Test Message for Communication app";
         
-        messageLabel.text=fdlvo.feeddescription;
-        
-        timeLabel.text=fdlvo.time;
+        timeLabel.text=@"10 feb 2016";
         
     });
     
@@ -402,7 +403,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Feedlist *feedlist=[activityDetailsArray objectAtIndex:indexPath.row];
+   /* Feedlist *feedlist=[activityDetailsArray objectAtIndex:indexPath.row];
 
     if(![feedlist.feedformat isEqualToString:@"Normal"])
     {
@@ -417,6 +418,7 @@
         feeddetails.selectFeedlist=[activityDetailsArray objectAtIndex:indexPath.row];
         [self.navigationController pushViewController:feeddetails animated:YES];
     }
+    */
 }
 
 

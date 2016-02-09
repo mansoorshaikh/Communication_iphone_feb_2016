@@ -138,8 +138,8 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setFrame:CGRectMake(30, 0, 110, 35)];
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    [titleLabel setText:[NSString stringWithFormat:@"Hi %@",[homepage objectForKey:@"username"]]];
-    
+    //[titleLabel setText:[NSString stringWithFormat:@"Hi %@",[homepage objectForKey:@"username"]]];
+    titleLabel.text=@"Danny";
     titleLabel.font =[UIFont systemFontOfSize:18];
     self.navigationItem.titleView = titleLabel;
     }
@@ -159,7 +159,16 @@
     activityDetailsArray=[[NSMutableArray alloc] init];
       appDelegate=[[UIApplication sharedApplication] delegate];
     
-   
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [titleLabel setFrame:CGRectMake(30, 0, 110, 35)];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    //[titleLabel setText:[NSString stringWithFormat:@"Hi %@",[homepage objectForKey:@"username"]]];
+    titleLabel.text=@"Danny";
+    titleLabel.font =[UIFont systemFontOfSize:18];
+    self.navigationItem.titleView = titleLabel;
+    
+    // This code one another method get home data
+
     [activityIndicator stopAnimating];
     [self setFontFamily:@"Open Sans" forView:self.view andSubViews:YES];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"navBar.png"]];
@@ -219,13 +228,11 @@
         [btnNoNewEvent removeFromSuperview];
         [self.view addSubview:btnNoNewEvent];
         
-        
         tableViewMain.layer.cornerRadius=5;
         tableViewMain.frame=CGRectMake(0,260,480,500);
         [tableViewMain removeFromSuperview];
         [self.view addSubview:tableViewMain];
         
-                
     }else if(height>=568 && height<600){
         //iphone 5
         
@@ -255,8 +262,6 @@
         [self.view addSubview:btnNewServeyNumber];
         [self.view bringSubviewToFront:lblNewSurveys];
 
-
-        
         imageViewNewEvent.frame=CGRectMake(0,130,320,130);
         imageViewNewEvent.image=[UIImage imageNamed:@"home_calendorbg.png"];
         [imageViewNewEvent removeFromSuperview];
@@ -274,7 +279,6 @@
         btnNoNewEvent.layer.frame=CGRectMake(170,150,140,75);
         [btnNoNewEvent removeFromSuperview];
         [self.view addSubview:btnNoNewEvent];
-        
         
         tableViewMain.layer.cornerRadius=5;
         tableViewMain.frame=CGRectMake(0,270,self.view.bounds.size.width,460);
@@ -309,7 +313,6 @@
         [self.view addSubview:lblNewSurveys];
         [self.view bringSubviewToFront:lblNewSurveys];
         
-        
         imageViewNewEvent.frame=CGRectMake(0,130,320,130);
         imageViewNewEvent.image=[UIImage imageNamed:@"home_calendorbg.png"];
         [imageViewNewEvent removeFromSuperview];
@@ -323,13 +326,16 @@
         [btnNoNewEvent removeFromSuperview];
         [self.view addSubview:btnNoNewEvent];
         
-        
         tableViewMain.layer.cornerRadius=5;
         tableViewMain.frame=CGRectMake(0,270,480,500);
         [tableViewMain removeFromSuperview];
         [self.view addSubview:tableViewMain];
         
     }
+    [btnNewMsgnumber setTitle:[NSString stringWithFormat:@"10 \n New Messages"] forState:UIControlStateNormal];
+    [btnNewServeyNumber setTitle:[NSString stringWithFormat:@"16 \n New Surveys"] forState:UIControlStateNormal];
+    [btnNoNewEvent setTitle:[NSString stringWithFormat:@"20 \n New Events"] forState:UIControlStateNormal];
+
     Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
     NetworkStatus myStatus = [myNetwork currentReachabilityStatus];
     if(myStatus == NotReachable)
@@ -338,8 +344,8 @@
         [alert show];
         [activityIndicator stopAnimating];
     }else{
-    [self getActivityList];
-    [self getHomePageDetails];
+    //[self getActivityList];
+    //[self getHomePageDetails];
     }
     [activityIndicator stopAnimating];
 }
@@ -401,13 +407,13 @@
     NSString *valueToSave = @"yes";
     [[NSUserDefaults standardUserDefaults]
      setObject:valueToSave forKey:@"udid"];
-
 }
 #pragma marl - UITableView Data Source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [activityDetailsArray count];
+    return 5;
+    //[activityDetailsArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -420,14 +426,12 @@
 	 
     static NSString *cellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    ActivityVO *avo=[activityDetailsArray objectAtIndex:indexPath.row];
+   // ActivityVO *avo=[activityDetailsArray objectAtIndex:indexPath.row];
     UILabel *actvitiytype,*firstinfo,*datelbl;
-	if (nil == cell)
-	{
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.textLabel.textColor=[UIColor whiteColor];
        
-        if([avo.activitytype isEqualToString:@"media"])
+       /* if([avo.activitytype isEqualToString:@"media"])
         {
             actvitiytype=[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 200, 20)];
             actvitiytype.tag=1;
@@ -447,8 +451,7 @@
             [cell.contentView addSubview:actvitiytype];
             
         }
-        
-        
+    */
         firstinfo=[[UILabel alloc] initWithFrame:CGRectMake(10, 25, 180, 25)];
         firstinfo.tag=2;
         datelbl=[[UILabel alloc] initWithFrame:CGRectMake(235, 5, 100, 45)];
@@ -462,7 +465,7 @@
 
         [cell.contentView addSubview:firstinfo];
         [cell.contentView addSubview:datelbl];
-	}
+	
     tableView.backgroundColor=[UIColor clearColor];
     dispatch_async(dispatch_get_main_queue(), ^{
         //Your main thread code goes in here
@@ -474,9 +477,9 @@
   
         
     
-    messageLabel.text=avo.firstinformation;
+    messageLabel.text=@"Admin has addes new event";
     
-    timeLabel.text=avo.date;
+    timeLabel.text=@"10 feb 2016";
     
    });
     
@@ -486,7 +489,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ActivityVO *avo=[activityDetailsArray objectAtIndex:indexPath.row];
+   /* ActivityVO *avo=[activityDetailsArray objectAtIndex:indexPath.row];
    
     if([avo.activitytype isEqualToString:@"media"])
     {
@@ -510,7 +513,7 @@
 
         
     }
-    
+    */
     
 }
 

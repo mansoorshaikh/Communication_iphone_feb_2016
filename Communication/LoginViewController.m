@@ -58,7 +58,10 @@
     [self loginAction];
 }
 -(IBAction)loginAction{
-    NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    MainViewController *mainvc=[[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+    [self.navigationController pushViewController:mainvc animated:YES];
+
+   /* NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     
     if ([emailTest evaluateWithObject:txtUserName.text] == NO) {
@@ -131,7 +134,7 @@
     else{
         [self saveuserdetails];
     }
-    
+    */
     }
 
 

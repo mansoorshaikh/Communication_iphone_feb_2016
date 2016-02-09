@@ -78,7 +78,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self getUserDetails];
+   // [self getUserDetails];
 }
 
 -(void)saveuserdetails{

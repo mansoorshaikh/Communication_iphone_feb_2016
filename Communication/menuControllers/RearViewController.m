@@ -38,6 +38,9 @@
 #import "CreateViewController.h"
 #import "SettingsViewController.h"
 #import "LoginViewController.h"
+#import "UIImage+FontAwesome.h"
+#import "NSString+FontAwesome.h"
+
 @interface RearViewController()
 
 @end
@@ -61,12 +64,11 @@
     [imageBtn setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:imageBtn];
     
-    userImageView=[[AsyncImageView alloc] initWithFrame:CGRectMake(5, 10, 60, 60)];
+    userImageView=[[AsyncImageView alloc] initWithFrame:CGRectMake(10, 15, 60, 60)];
     [userImageView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:userImageView];
 
     [self getHomePageDetails];
-    
 }
 
 -(void)getHomePageDetails{
@@ -79,16 +81,16 @@
     
     NSDictionary *homepage=[[json objectForKey:@"homepagedetails"] objectForKey:@"homepage"];
    
-    
     usernameLabel.textAlignment = NSTextAlignmentCenter;
-    [usernameLabel setText:[NSString stringWithFormat:@"%@",[homepage objectForKey:@"username"]]];
+    //[usernameLabel setText:[NSString stringWithFormat:@"%@",[homepage objectForKey:@"username"]]];
+    usernameLabel.text=@"Danny";
     usernameLabel.font =[UIFont systemFontOfSize:14];
     
     NSURL *url = [NSURL URLWithString:[[homepage objectForKey:@"userimage"] stringByReplacingOccurrencesOfString:@"\/" withString:@"/"]];
-       [userImageView loadImageFromURL:url];
+      // [userImageView loadImageFromURL:url];
+    userImageView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"feed2.png"]];
 
-
-       }
+}
 
 
 #pragma marl - UITableView Data Source
@@ -116,13 +118,20 @@
 	}
     
     UIImageView *menuItemImageView=[[UIImageView alloc] initWithFrame:CGRectMake(5, 20, 15, 15)];
-    UILabel *menuItemTextLabel=[[UILabel alloc] initWithFrame:CGRectMake(50, 5, 250, 45)];
-    menuItemTextLabel.font = [UIFont systemFontOfSize:14];
+    UILabel *pictureLbl=[[UILabel alloc]initWithFrame:CGRectMake(10,10,35,35)];
+    pictureLbl.text = @"";
+    pictureLbl.textColor=[UIColor grayColor];
+
+    UILabel *menuItemTextLabel=[[UILabel alloc] initWithFrame:CGRectMake(60, 5, 250, 45)];
+    menuItemTextLabel.font = [UIFont systemFontOfSize:16];
     menuItemTextLabel.textColor=[UIColor colorWithHexString:@"808083"];
     cell.backgroundColor=[UIColor clearColor];
 	if (row == 0)
 	{
-        menuItemImageView.image=[UIImage imageNamed:@"homeicon.png"];
+        //menuItemImageView.image=[UIImage imageNamed:@"homeicon.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf015";
+
 		menuItemTextLabel.text = @"HOME";
         if([appDelegate.selectedMenuItem isEqualToString:@"Home"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
@@ -130,7 +139,10 @@
     }
 	else if (row == 1)
 	{
-		menuItemImageView.image=[UIImage imageNamed:@"feed.png"];
+		//menuItemImageView.image=[UIImage imageNamed:@"feed.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf0eb";
+
 		menuItemTextLabel.text = @"FEED";
         if([appDelegate.selectedMenuItem isEqualToString:@"FEED"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
@@ -138,7 +150,10 @@
 	}
 	else if (row == 2)
 	{
-        menuItemImageView.image=[UIImage imageNamed:@"camera.png"];
+       // menuItemImageView.image=[UIImage imageNamed:@"camera.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf083";
+
 		menuItemTextLabel.text = @"CAMERA";
         if([appDelegate.selectedMenuItem isEqualToString:@"CAMERA"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
@@ -146,7 +161,10 @@
 	}
 	else if (row == 3)
 	{
-		menuItemImageView.image=[UIImage imageNamed:@"camera.png"];
+		//menuItemImageView.image=[UIImage imageNamed:@"camera.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf073";
+
 		menuItemTextLabel.text = @"CALENDAR";
         if([appDelegate.selectedMenuItem isEqualToString:@"CALENDAR"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
@@ -154,7 +172,10 @@
 	}
 	else if (row == 4)
 	{
-		menuItemImageView.image=[UIImage imageNamed:@"media.png"];
+		//menuItemImageView.image=[UIImage imageNamed:@"media.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf26c";
+
 		menuItemTextLabel.text = @"MEDIA";
         if([appDelegate.selectedMenuItem isEqualToString:@"MEDIA"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
@@ -162,7 +183,10 @@
 	}
     else if (row == 5)
 	{
-		menuItemImageView.image=[UIImage imageNamed:@"activity.png"];
+		//menuItemImageView.image=[UIImage imageNamed:@"activity.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf0a1";
+
 		menuItemTextLabel.text = @"ACTIVITY";
         if([appDelegate.selectedMenuItem isEqualToString:@"ACTIVITY"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
@@ -170,30 +194,39 @@
 	}
     else if (row == 6)
 	{
-		menuItemImageView.image=[UIImage imageNamed:@"create.png"];
+		//menuItemImageView.image=[UIImage imageNamed:@"create.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf0f6";
+
 		menuItemTextLabel.text = @"CREATE";
         if([appDelegate.selectedMenuItem isEqualToString:@"CREATE"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
         }
 	}else if (row == 7)
 	{
-		menuItemImageView.image=[UIImage imageNamed:@"settings.png"];
+		//menuItemImageView.image=[UIImage imageNamed:@"settings.png"];
+        pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+        pictureLbl.text = @"\uf013";
+
 		menuItemTextLabel.text = @"SETTINGS";
         if([appDelegate.selectedMenuItem isEqualToString:@"SETTINGS"]){
             cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
         }
     }else if (row == 8)
         {
-            menuItemImageView.image=[UIImage imageNamed:@"settings.png"];
+            //menuItemImageView.image=[UIImage imageNamed:@"settings.png"];
+            pictureLbl.font = [UIFont fontWithName:@"FontAwesome" size:30];
+            pictureLbl.text = @"\uf011";
+
             menuItemTextLabel.text = @"LOGOUT";
             if([appDelegate.selectedMenuItem isEqualToString:@"LOGOUT"]){
                 cell.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"tablecellselected.png"]];
-
         }
-
         }
 	[cell.contentView addSubview:menuItemImageView];
     [cell.contentView addSubview:menuItemTextLabel];
+    [cell.contentView addSubview:pictureLbl];
+
 	return cell;
 }
 

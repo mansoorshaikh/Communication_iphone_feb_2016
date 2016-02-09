@@ -136,7 +136,7 @@
     self.navigationItem.leftBarButtonItem = revealButtonItem;
     
         
-    [self getActivityList];
+    //[self getActivityList];
 
 }
 
@@ -151,7 +151,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [activityDetailsArray count];
+    return 10;
+   // [activityDetailsArray count];
 
 }
 
@@ -164,14 +165,13 @@
 {
     static NSString *cellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    ActivityVO *avo=[[ActivityVO alloc]init];
-    avo=[activityDetailsArray objectAtIndex:indexPath.row];
+    //ActivityVO *avo=[[ActivityVO alloc]init];
+    //avo=[activityDetailsArray objectAtIndex:indexPath.row];
     UILabel *actvitiytype,*firstinfo,*datelbl;
-    if (nil == cell)
-    {
+    
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.textLabel.textColor=[UIColor whiteColor];
-        
+       /*
         if([avo.activitytype isEqualToString:@"media"])
         {
             actvitiytype=[[UILabel alloc] initWithFrame:CGRectMake(10, 5, 200, 20)];
@@ -193,7 +193,7 @@
             
         }
         
-        
+        */
         firstinfo=[[UILabel alloc] initWithFrame:CGRectMake(10, 25, 180, 25)];
         firstinfo.tag=2;
         datelbl=[[UILabel alloc] initWithFrame:CGRectMake(235, 5, 100, 45)];
@@ -207,7 +207,7 @@
         
         [cell.contentView addSubview:firstinfo];
         [cell.contentView addSubview:datelbl];
-    }
+    
     tableView.backgroundColor=[UIColor clearColor];
     dispatch_async(dispatch_get_main_queue(), ^{
         //Your main thread code goes in here
@@ -219,9 +219,9 @@
         
         
         
-        messageLabel.text=avo.firstinformation;
+        messageLabel.text=@"Test message for communication app";
         
-        timeLabel.text=avo.date;
+        timeLabel.text=@"10 feb 2016";
         
     });
     
@@ -232,7 +232,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    ActivityVO *avo=[[ActivityVO alloc]init];
+    /*ActivityVO *avo=[[ActivityVO alloc]init];
     avo=[activityDetailsArray objectAtIndex:indexPath.row];
 
     if([avo.activitytype isEqualToString:@"media"])
@@ -257,7 +257,7 @@
         
         
     }
-    
+    */
     
 }
 

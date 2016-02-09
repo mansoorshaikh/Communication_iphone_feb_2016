@@ -93,7 +93,7 @@
     tableViewMain.frame=CGRectMake(0,(self.view.bounds.size.height*40)/100,self.view.bounds.size.width,450);
     [tableViewMain removeFromSuperview];
     [self.view addSubview:tableViewMain];
-        [self getCalendarEvents];
+       // [self getCalendarEvents];
     
 }
 
@@ -118,7 +118,7 @@
     dateFormatter.dateFormat = @"MM/dd/yyyy";
     NSLog(@"%@",[dateFormatter stringFromDate:date]);
     selectedDate=[[NSString alloc] initWithString:[dateFormatter stringFromDate:date]];
-    [self getCalendarEvents];
+    //[self getCalendarEvents];
 }
 
 
@@ -235,7 +235,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [activityDetailsArray count];
+    return 5;
+    [activityDetailsArray count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -248,11 +249,9 @@
     static NSString *cellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     NSInteger row = indexPath.row;
-	CalenderVO *cvo=[activityDetailsArray objectAtIndex:indexPath.row];
+	//CalenderVO *cvo=[activityDetailsArray objectAtIndex:indexPath.row];
     UILabel *timeLabel,*messageLabel;
 
-	if (nil == cell)
-	{
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.textLabel.textColor=[UIColor whiteColor];
 
@@ -266,28 +265,19 @@
         messageLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:12];
         messageLabel.textColor=[UIColor blackColor];
         
-        
         [cell.contentView addSubview:messageLabel];
         [cell.contentView addSubview:timeLabel];
 
-	}
-    
     tableView.backgroundColor=[UIColor clearColor];
     dispatch_async(dispatch_get_main_queue(), ^{
         //Your main thread code goes in here
         NSLog(@"Im on the main thread");
-        
-        
-               UILabel *messageLabel = (id)[cell.contentView viewWithTag:2];
+        UILabel *messageLabel = (id)[cell.contentView viewWithTag:2];
         UILabel *timeLabel = (id)[cell.contentView viewWithTag:3];
         
+        messageLabel.text=@"Test message";
         
-        
-        
-        messageLabel.text=cvo.calendareventtext;
-        
-        timeLabel.text=cvo.calendareventtime;
-        
+        timeLabel.text=@"10 feb 2016";
     });
     return cell;
 }

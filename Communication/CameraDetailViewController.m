@@ -14,6 +14,9 @@
 #import "AsyncImageView.h"
 #import <MessageUI/MessageUI.h>
 #import "Reachability.h"
+#import "UIImage+FontAwesome.h"
+#import "NSString+FontAwesome.h"
+
 @interface CameraDetailViewController ()
 @end
 @implementation CameraDetailViewController
@@ -43,7 +46,6 @@
         UITextField *textfield = (UITextField *)view;
         [textfield setFont:[UIFont fontWithName:fontFamily size:[[textfield font] pointSize]]];
     }
-    
     if (isSubViews)
     {
         for (UIView *sview in view.subviews)
@@ -239,7 +241,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     CGFloat screenHeight = screenRect.size.height;
     
     if(screenHeight>=568 && screenHeight<600){
-       
+        
     }else{
         tblviewContainerView.frame=CGRectMake(0, 0, 320, 350);
         [tblviewContainerView removeFromSuperview];
@@ -278,14 +280,19 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
     self.navigationItem.leftBarButtonItem = revealButtonItem;
     
-    UIBarButtonItem *addImageButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"plusicon_camera.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                                         style:UIBarButtonItemStyleBordered target:self action:@selector(picImage)];
-    
-    self.navigationItem.rightBarButtonItem = addImageButtonItem;
+    UIButton *btnRight = [UIButton buttonWithType:UIButtonTypeCustom]; [btnRight setFrame:CGRectMake(0, 0, 30, 44)];
+    btnRight.titleLabel.font = [UIFont fontWithName:@"FontAwesome" size:30];
+    [btnRight setTitle:@"\uf067" forState:UIControlStateNormal];
+    [btnRight setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btnRight addTarget:self action:@selector(picImage) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barBtnRight = [[UIBarButtonItem alloc] initWithCustomView:btnRight];
+    //[barBtnRight setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = barBtnRight;
+
     //[self getImageList];
 }
 -(void)viewDidAppear:(BOOL)animated{
-    [self getImageList];
+    //[self getImageList];
 }
 -(void)deleteMessage:(int)btnid{
     Reachability *myNetwork = [Reachability reachabilityWithHostname:@"google.com"];
@@ -304,7 +311,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                                                   length:[mydata length] encoding: NSUTF8StringEncoding];
     
     
-    [self getImageList];
+   // [self getImageList];
     }
 }
 
@@ -416,7 +423,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     NSLog(@"return string %@",returnString);
     //[self clearAllData];
     [activityIndicator stopAnimating];
-    [self getImageList];
+    //[self getImageList];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Communication"
                                                     message:@"Image uploaded successfully."
@@ -448,11 +455,12 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSLog(@"%d",[activityDetailsArray count]/2);
-    if([activityDetailsArray count]%2==0)
+    /*if([activityDetailsArray count]%2==0)
         return [activityDetailsArray count]/2;
     else
         return ([activityDetailsArray count]/2)+1;
-
+*/
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -474,17 +482,16 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
         row=((indexPath.row+1)*2)-1;
     }
     
-    ImageVO *imgaeVo=[activityDetailsArray objectAtIndex:row-1];
-    if (nil == cell)
-    {
+   // ImageVO *imgaeVo=[activityDetailsArray objectAtIndex:row-1];
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.textLabel.textColor=[UIColor whiteColor];
-    }
+    
     
     AsyncImageView *mediaImage=[[AsyncImageView alloc] initWithFrame:CGRectMake(5, 5, 155, 150)];
     [mediaImage setBackgroundColor:[UIColor clearColor]];
-    [mediaImage loadImageFromURL:[NSURL URLWithString:imgaeVo.imagepath]];
-    
+    //[mediaImage loadImageFromURL:[NSURL URLWithString:imgaeVo.imagepath]];
+    mediaImage.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"feed1.png"]];
+
     UIButton *transperentBtn=[[UIButton alloc] initWithFrame:CGRectMake(5, 0, 155, 150)];
     transperentBtn.tag=row-1;
     [transperentBtn addTarget:self action:@selector(showActionSheet:) forControlEvents:UIControlEventTouchUpInside];
@@ -494,15 +501,16 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     [cell.contentView addSubview:transperentBtn];
     
        if([activityDetailsArray count]>row){
-           imgaeVo=[activityDetailsArray objectAtIndex:row];
+           //imgaeVo=[activityDetailsArray objectAtIndex:row];
         
         AsyncImageView *mediaImage2=[[AsyncImageView alloc] initWithFrame:CGRectMake(160, 5, 155, 150)];
         [mediaImage2 setBackgroundColor:[UIColor clearColor]];
-        [mediaImage2 loadImageFromURL:[NSURL URLWithString:imgaeVo.imagepath]];
-           
+        //[mediaImage2 loadImageFromURL:[NSURL URLWithString:imgaeVo.imagepath]];
+           mediaImage2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"feed2.png"]];
+
            UIButton *transperentBtn2=[[UIButton alloc] initWithFrame:CGRectMake(160, 0, 155, 150)];
            transperentBtn2.tag=row;
-           [transperentBtn2 addTarget:self action:@selector(showActionSheet:) forControlEvents:UIControlEventTouchUpInside];
+           //[transperentBtn2 addTarget:self action:@selector(showActionSheet:) forControlEvents:UIControlEventTouchUpInside];
            
         [cell.contentView addSubview:mediaImage2];
            [cell.contentView addSubview:transperentBtn2];

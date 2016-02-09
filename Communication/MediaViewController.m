@@ -226,7 +226,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self getMediaList];
+    //[self getMediaList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -240,10 +240,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSLog(@"%d",[mediaArray count]/2);
-    if([mediaArray count]%2==0)
+    /*if([mediaArray count]%2==0)
         return [mediaArray count]/2;
     else
-        return ([mediaArray count]/2)+1;
+        return ([mediaArray count]/2)+1;*/
+    return 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -265,17 +266,17 @@
         row=((indexPath.row+1)*2)-1;
     }
     
-    MediaVO *mediaVO=[mediaArray objectAtIndex:row-1];
-	if (nil == cell)
-	{
+   // MediaVO *mediaVO=[mediaArray objectAtIndex:row-1];
+	
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         cell.textLabel.textColor=[UIColor whiteColor];
-	}
+	
     
     AsyncImageView *mediaImage=[[AsyncImageView alloc] initWithFrame:CGRectMake(5, 0, 155, 150)];
     [mediaImage setBackgroundColor:[UIColor clearColor]];
-    [mediaImage loadImageFromURL:[NSURL URLWithString:mediaVO.mediapicture]];
-    
+    //[mediaImage loadImageFromURL:[NSURL URLWithString:mediaVO.mediapicture]];
+    mediaImage.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"feed1.png"]];
+
     UIButton *transperentBtn=[[UIButton alloc] initWithFrame:CGRectMake(5, 0, 155, 150)];
     transperentBtn.tag=row-1;
     [transperentBtn addTarget:self action:@selector(videoAlertDialog:) forControlEvents:UIControlEventTouchUpInside];
@@ -283,23 +284,25 @@
     UILabel *feedtextLabel=[[UILabel alloc] initWithFrame:CGRectMake(60, 155, 155, 20)];
     feedtextLabel.font = [UIFont fontWithName:@"Gotham Narrow" size:12];
     feedtextLabel.textColor=[UIColor blackColor];
-    feedtextLabel.text=mediaVO.medianame;
+    feedtextLabel.text=@"Danny";
     
     UILabel *feedtimeLabel=[[UILabel alloc] initWithFrame:CGRectMake(60, 175, 155, 15)];
     feedtimeLabel.font = [UIFont systemFontOfSize:8];
     feedtimeLabel.textColor=[UIColor blackColor];
-    feedtimeLabel.text=mediaVO.mediadate;
+    feedtimeLabel.text=@"10 feb 2016";
     
     [cell.contentView addSubview:mediaImage];
      [cell.contentView addSubview:transperentBtn];
     [cell.contentView addSubview:feedtextLabel];
     [cell.contentView addSubview:feedtimeLabel];
     if([mediaArray count]>row){
-    mediaVO=[mediaArray objectAtIndex:row];
+    //mediaVO=[mediaArray objectAtIndex:row];
     
     AsyncImageView *mediaImage2=[[AsyncImageView alloc] initWithFrame:CGRectMake(160, 0, 155, 150)];
     [mediaImage2 setBackgroundColor:[UIColor clearColor]];
-    [mediaImage2 loadImageFromURL:[NSURL URLWithString:mediaVO.mediapicture]];
+    //[mediaImage2 loadImageFromURL:[NSURL URLWithString:mediaVO.mediapicture]];
+        mediaImage2.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"feed2.png"]];
+
         UIButton *transperentBtn2=[[UIButton alloc] initWithFrame:CGRectMake(160, 0, 155, 150)];
         transperentBtn2.tag=row;
         [transperentBtn2 addTarget:self action:@selector(videoAlertDialog:) forControlEvents:UIControlEventTouchUpInside];
@@ -308,12 +311,12 @@
     UILabel *feedtextLabel2=[[UILabel alloc] initWithFrame:CGRectMake(210, 155, 155, 20)];
     feedtextLabel2.font = [UIFont fontWithName:@"Gotham Narrow" size:12];
     feedtextLabel2.textColor=[UIColor blackColor];
-    feedtextLabel2.text=mediaVO.medianame;
+    feedtextLabel2.text=@"Sam";
     
     UILabel *feedtimeLabel2=[[UILabel alloc] initWithFrame:CGRectMake(210, 175, 155, 15)];
     feedtimeLabel2.textColor=[UIColor blackColor];
     feedtimeLabel2.font = [UIFont systemFontOfSize:8];
-    feedtimeLabel2.text=mediaVO.mediadate;
+    feedtimeLabel2.text=@"10 feb 2016";
     
     [cell.contentView addSubview:mediaImage2];
         [cell.contentView addSubview:transperentBtn2];
